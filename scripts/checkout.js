@@ -1,4 +1,4 @@
-import {cart, removeFromCart} from '.cart.js';
+import {cart, removeFromCart} from '../data/cart.js';
 import {products} from '../data/products.js';
 import {formatCurrency} from './utils/money.js';
 
@@ -7,13 +7,12 @@ let cartSummaryHTML = '';
 cart.forEach((cartItem) => {
   const productId = cartItem.productId;
 
-  let matchingProduct;
+  let matchingProduct = products.find(product => product.id === productId);
 
-  products.forEach((product) => {
-    if (product.id === productId) {
-      matchingProduct = product;
-    }
-  });
+  if (!matchingProduct) {
+    console.error(`Продукт с ID ${productId} не найден в списке products.`);
+    return;
+  }
 
   cartSummaryHTML += `
     <div class="cart-item-container
@@ -95,6 +94,7 @@ cart.forEach((cartItem) => {
   `;
 });
 
+
 document.querySelector('.js-order-summary')
   .innerHTML = cartSummaryHTML;
 
@@ -103,7 +103,6 @@ document.querySelectorAll('.js-delete-link')
     link.addEventListener('click', () => {
       const productId = link.dataset.productId;
       removeFromCart(productId);
-      console.log(cart);
 
       const container = document.querySelector(
         `.js-cart-item-container-${productId}`
