@@ -36,6 +36,7 @@ export const products  = [
       stars: 4.5,
       count: 123
     },
+    priceCents: 2030,
   },{
     id: "id2",
     image: "images/products/umbrella.jpg",
