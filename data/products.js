@@ -1,4 +1,5 @@
 const products = [
+  
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     image: "images/products/athletic-cotton-socks-6-pairs.jpg",
@@ -27,6 +28,24 @@ const products = [
       "sports",
       "basketballs"
     ]
+  },
+  {
+    id: "id1",
+    image: "images/products/backpack.jpg",
+    name: "Black Backpack",
+    rating: {
+      stars: 4.5,
+      count: 123
+    },
+  },{
+    id: "id2",
+    image: "images/products/umbrella.jpg",
+    name: "Large Green Umbrella",
+    rating: {
+      stars: 5,
+      count: 456
+    },
+    priceCents: 2999
   },
   {
     id: "83d4ca15-0f35-48f5-b7a3-1ea210004f2e",
