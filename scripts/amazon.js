@@ -1,4 +1,4 @@
-import { cart } from "../data/cart.js";
+import { cart, addToCart } from "../data/cart.js";
 import { products } from '../data/products.js';
 
 const cart = [];
@@ -60,6 +60,7 @@ products.forEach((product) => {
 
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
+
 // We're going to use an object to save the timeout ids.
 // The reason we use an object is because each product
 // will have its own timeoutId. So an object lets us
@@ -74,40 +75,24 @@ document.querySelector('.js-products-grid').innerHTML = productsHTML;
 const addedMessageTimeouts = {};
 let addedMessageTimeoutId;
 
-document.querySelectorAll('.js-add-to-cart')
-  .forEach((button) => {
-    button.addEventListener('click', () => {
-      const {productId} = button.dataset;
+function updateCartQuantity() {
+  let cartQuantity = 0;
 
-      let matchingItem;
-
-      cart.forEach((item) => {
-        if (productId === item.productId) {
-          matchingItem = item;
-        }
-      });
-      const quantitySelector = document.querySelector(
-        `.js-quantity-selector-${productId}`
-      );
-      const quantity = Number(quantitySelector.value);
-
-      if (matchingItem) {
-        matchingItem.quantity += 1;
-      } else {
-        cart.push({
-          productId,
-          quantity
-        });
-      }
-
-      let cartQuantity = 0;
-
-      cart.forEach((item) => {
-        cartQuantity += item.quantity;
+      cart.forEach((cartItem) => {
+        cartQuantity += cartItem.quantity;
       });
 
       document.querySelector('.js-cart-quantity')
         .innerHTML = cartQuantity;
+}
+
+document.querySelectorAll('.js-add-to-cart')
+  .forEach((button) => {
+    button.addEventListener('click', () => {
+      const {productId} = button.dataset.productId;
+        addToCart(productId);
+        updateCartQuantity();
+      
         const addedMessage = document.querySelector(
           `.js-added-to-cart-${productId}`
         );
