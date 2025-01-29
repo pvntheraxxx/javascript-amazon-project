@@ -1,7 +1,7 @@
 import { cart, addToCart } from "../data/cart.js";
 import { products } from '../data/products.js';
 
-const cart = [];
+// const cart = [];
 let productsHTML = '';
 
 products.forEach((product) => {
