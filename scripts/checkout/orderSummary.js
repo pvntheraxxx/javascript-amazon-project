@@ -1,22 +1,23 @@
 import {cart, removeFromCart, updateDeliveryOption } from '../../data/cart.js';
-import {products} from '../../products.js';
+import {products, getProduct} from '../../products.js';
 import {formatCurrency} from '../utils/money.js';
-import { deliveryOptions } from '../../data/deliveryOptions.js';
+import { deliveryOptions, getDevileryOption } from '../../data/deliveryOptions.js';
 
 let cartSummaryHTML = '';
 
 export function renderOrderSummary() {
   cart.forEach((cartItem) => {
     const productId = cartItem.productId;
-  
-    let matchingProduct = products.find(product => product.id === productId);
-  
+    
     if (!matchingProduct) {
       console.error(`Продукт с ID ${productId} не найден в списке products.`);
       return;
     }
+
+    const matchingProduct = getProduct(productId);
     const deliveryOptionId = cartItem.deliveryOptionId;
-    let deliveryOption;
+   
+    const deliveryOption = getDevileryOption(deliveryOptionId);
   
     deliveryOption.forEach((option) => {
       if (option.id === deliveryOptionId) {
